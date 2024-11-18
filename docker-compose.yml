@@ -18,7 +18,7 @@ services:
   apiDB:
     image: mysql:8.0.34
     ports:
-      - "3308:3306"
+      - "3307:3306"
     environment:
       MYSQL_ROOT_PASSWORD: Reques123@
       MYSQL_PASSWORD: Reques123@
