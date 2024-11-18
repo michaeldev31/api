@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  api:
+    build: api
+    mem_limit: 512m
+    ports:
+      - "8080:8080"
+    environment:
+      DB_URL: jdbc:mysql://apiDB:3306/apiCard?createDatabaseIfNotExist=true&serverTimezone=UTC
+      DB_USERNAME: root
+      DB_PASSWORD: Reques123@
+    restart: always
+    depends_on:
+      apiDB:
+        condition: service_healthy
+
+  apiDB:
+    image: mysql:8.0.34
+    ports:
+      - "3308:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: Reques123@
+      MYSQL_PASSWORD: Reques123@
+      MYSQL_DATABASE: apiCard
+    restart: always
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 10s
+      retries: 10
